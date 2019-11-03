@@ -83,6 +83,7 @@ const course_manage_page = async (res, course_id) => {
 }
 
 const course_new_page = async (res, department = false) => {
+	
 	const departments = await Department.query().select()
 	const semesters = await (await TermType.query()
 		.findById('semester'))
