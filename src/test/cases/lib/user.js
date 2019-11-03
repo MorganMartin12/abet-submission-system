@@ -6,7 +6,7 @@ const sandbox = sinon.createSandbox();
 
 describe('Lib - User', () => {
 
-    describe('is_whitelistd', () => {
+    describe('is_whitelisted', () => {
 
         afterEach(() => {
             sandbox.restore()
@@ -14,7 +14,7 @@ describe('Lib - User', () => {
 
         it('returns true when the id is in the table', async () => {
 
-            const User = require('../../../main/moduls/User')
+            const User = require('../../../main/models/User')
 
             sandbox.stub(User, "query").returns({
                 findById: sandbox.stub().returns({
