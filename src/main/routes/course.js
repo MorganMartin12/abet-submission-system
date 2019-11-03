@@ -3,8 +3,6 @@ var mustache = require('../common/mustache')
 var html = require('../common/html')
 var course_portfolio_lib = require('../lib/course_portfolio')
 var Portfolio = require('../models/CoursePortfolio/index')
-var Artifacts =require('../models/CoursePortfolio/Artifacts/index')
-var SLO = require('../models/CoursePortfolio/StudentLearningOutcome')
 var router = express.Router();
 
 const Department = require('../models/Department')
