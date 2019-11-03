@@ -19,11 +19,11 @@ describe('Lib - User', () => {
             sandbox.stub(User, "query").returns({
                 findById: sandbox.stub().returns({
                     id: 1,
-                    linkblue_username: 'rfwh222'
+                    linkblue_username: 'user'
                 })
             })
 
-            const result = await user_lib.is_whitelisted('rfwh222')
+            const result = await user_lib.is_whitelisted('user')
 
             expect(result).to.true
 
@@ -37,7 +37,7 @@ describe('Lib - User', () => {
                 findById: sandbox.stub().returns(null)
             })
             
-            const result = await user_lib.is_whitelisted('rfwh222')
+            const result = await user_lib.is_whitelisted('user')
 
             expect(result).to.false
 
