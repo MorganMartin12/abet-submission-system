@@ -10,7 +10,7 @@ module.exports.new = async ({
 	student_learning_outcomes,
 	section
 }) => {
-// TODO
+
 const portfolios = await Portfolio.query()
 	
 	
