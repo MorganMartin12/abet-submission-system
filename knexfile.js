@@ -6,7 +6,12 @@ const common = {
 	pool: {
 		min: 2,
 		max: 10
-	}
+  },
+  connection: {
+    database: 'abet_system_dev',
+    user: 'postgres',
+    password: 'password'
+  }
 }
 
 module.exports = {

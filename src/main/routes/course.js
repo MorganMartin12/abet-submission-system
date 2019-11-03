@@ -2,6 +2,7 @@ var express = require('express');
 var mustache = require('../common/mustache')
 var html = require('../common/html')
 var course_portfolio_lib = require('../lib/course_portfolio')
+var course_portfolio_lib = require('../lib/course_portfolio')
 var router = express.Router();
 
 const Department = require('../models/Department')
@@ -136,6 +137,15 @@ router.route('/:id')
 						.filter(entry => entry[0].startsWith('slo_') && entry[1] === 'on')
 						.map(entry => entry[0].split('_')[1]),
 					section: req.body.course_section
+				})
+				await Portfolio.query().insert({
+					id:course_portfolio.id,
+					course_id: parseInt(req.body.course_number),
+					instructor_id: 1,
+					semester_term_id: parseInt(req.body.semester),
+					year: parseInt(req.body.course_year),
+					num_students: parseInt(req.body.num_students)	,
+					section: parseInt(req.body.course_section)
 				})
 
 				res.redirect(302, `/course/${course_portfolio.id}`)

@@ -10,10 +10,13 @@ module.exports.new = async ({
 	student_learning_outcomes,
 	section
 }) => {
-	// TODO
-	return {
-		id: 'todo'
-	};
+// TODO
+const portfolios = await Portfolio.query()
+	
+	
+return {
+	id: portfolios.length
+};
 }
 
 
