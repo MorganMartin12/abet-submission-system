@@ -12,10 +12,10 @@ module.exports.new = async ({
 }) => {
 
 const portfolios = await Portfolio.query()
-	
+num = portfolios.length+1
 	
 return {
-	id: portfolios.length
+	id: num
 };
 }
 

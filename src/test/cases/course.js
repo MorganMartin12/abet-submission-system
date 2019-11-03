@@ -2,6 +2,8 @@
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let app = require('../../main/app');
+const sinon = require('sinon');
+const sandbox = sinon.createSandbox();
 
 chai.use(chaiHttp);
 chai.should();
@@ -18,6 +20,9 @@ describe("Course.js", () => {
          })
     })
     describe("/course/new", () => {
+        afterEach(() => {
+            sandbox.restore()
+        })
         it("should get the new page", (done) => {
              chai.request(app)
                  .get('/course/new')
@@ -50,22 +55,26 @@ describe("Course.js", () => {
         })
         it("Should accept a new post", (done) => {
            let post = {
-                course_submit:true,
-                id:10,
-                course_id:1,
+                course_submit:'Create',
+                course_number:'1',
                 instructor_id:1,
-                semester_term_id:1,
-                section:1,
-                num_students:50,
-                year:2019
-           }           
+                semester:'3',
+                course_section:'1',
+                num_students:'50',
+                course_year:'2019'
+           }
+           const Portfolio = require('../../main/models/CoursePortfolio/index')
+
+            sandbox.stub(Portfolio, "query").returns({
+
+                insert: sandbox.stub().returns(null)
+            })           
             chai.request(app)
             .post('/course/new')
             .send(post)
             .end((err,res) => {
-               console.log(res)
+                console.log(res)
                res.should.have.status(200)
-               
                done();
             })
         })
