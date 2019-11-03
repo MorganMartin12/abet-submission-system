@@ -1,4 +1,4 @@
-const Portfolio = require('../models/CoursePortfolio')
+const Portfolio = require('../models/CoursePortfolio/index')
 
 module.exports.new = async ({
 	department_id,

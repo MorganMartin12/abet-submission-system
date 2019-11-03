@@ -34,7 +34,8 @@ class CoursePortfolio extends Model {
 				semester_term_id: { type: 'integer' },
 				num_students: { type: 'integer' },
 				section: { type: 'integer' },
-				year: { type: 'integer' }
+				year: { type: 'integer' },
+				artifactProgress: {type:'integer'}
 			}
 		};
 	}

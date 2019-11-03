@@ -2,7 +2,9 @@ var express = require('express');
 var mustache = require('../common/mustache')
 var html = require('../common/html')
 var course_portfolio_lib = require('../lib/course_portfolio')
-var course_portfolio_lib = require('../lib/course_portfolio')
+var Portfolio = require('../models/CoursePortfolio/index')
+var Artifacts =require('../models/CoursePortfolio/Artifacts/index')
+var SLO = require('../models/CoursePortfolio/StudentLearningOutcome')
 var router = express.Router();
 
 const Department = require('../models/Department')
@@ -108,9 +110,13 @@ const course_new_page = async (res, department = false) => {
 /* GET course home page */
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
+		const portfolios = await Portfolio.query()
 		res.render('base_template', {
 			title: 'Course Portfolios',
-			body: mustache.render('course/index')
+			body: mustache.render('course/index',{
+			portfolios
+			
+			})
 		})
 	}))
 
