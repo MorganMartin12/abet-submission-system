@@ -41,7 +41,7 @@
 		</table>
 		{{#artifacts}}
 		<div class="container row">
-			<h3>Artifact 1: {{name}}</h3>
+			<h3>Artifact {{index}}: {{name}}</h3>
 			<form id="edit_course_form" target="_self" method="POST">
 				<table>
 					<tr>
@@ -53,7 +53,7 @@
 					</tr>
 					{{#evaluations}}
 					<tr>
-						<td>{{index}}</td>
+						<td>{{student_index}}</td>
 						{{#evaluation}}
 						<td>
 							<select name="student-{{index}}-category-{{metric}}">

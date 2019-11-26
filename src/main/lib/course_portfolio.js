@@ -2,6 +2,7 @@ const Portfolio = require('../models/CoursePortfolio/index')
 const Artifact = require('../models/CoursePortfolio/Artifact/index')
 var SLOPort = require('../models/CoursePortfolio/StudentLearningOutcome.js')
 var SLO = require('../models/StudentLearningOutcome/index')
+const Eval= require('../models/CoursePortfolio/Artifact/Evaluation') 
 module.exports.new = async ({
 	department_id,
 	course_number,
@@ -42,7 +43,43 @@ for ( const i of student_learning_outcomes){
 			name:"_unset_"
 	
 		})
+		for(k=1;k<6;k++){
+		const Evals = await Eval.query()
+		await Eval.query().insert({
+			id:Evals.length+1,
+			artifact_id:arts.length+1,
+			evaluation_index: k,
+			student_index: k,
+			evaluation:JSON.stringify([
+				{
+					metric: 1,
+					value: 6
+				},
+				{
+					metric: 2,
+					value: 6
+				},
+				{
+					metric: 3,
+					value: 6
+				},
+				{
+					metric: 4,
+					value: 6
+				},
+				{
+					metric: 5,
+					value: 6
+				},
+				{
+					metric: 6,
+					value: 6
+				},
+
+			])
+		})
 	}
+}
 }
 
 

@@ -75,5 +75,18 @@ describe("Course.js", () => {
         })
 
     })
+    describe("get course/id", () => {
+        afterEach(() => {
+            sandbox.restore()
+        })
+        it("should get the edit page", (done) => {
+            chai.request(app)
+                .get('/course/1')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                 });
+        })
+    })
 })
 
