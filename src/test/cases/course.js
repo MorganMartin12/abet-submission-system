@@ -63,17 +63,12 @@ describe("Course.js", () => {
                 num_students:'50',
                 course_year:'2019'
            }
-           const Portfolio = require('../../main/models/CoursePortfolio/index')
-
-            sandbox.stub(Portfolio, "query").returns({
-
-                insert: sandbox.stub().returns(null)
-            })           
+           var course_portfolio_lib = require('../../main/lib/course_portfolio')
+            sandbox.stub(course_portfolio_lib, "new").returns({id:1})           
             chai.request(app)
             .post('/course/new')
             .send(post)
             .end((err,res) => {
-                console.log(res)
                res.should.have.status(200)
                done();
             })

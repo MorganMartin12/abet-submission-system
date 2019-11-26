@@ -1,5 +1,7 @@
 const Portfolio = require('../models/CoursePortfolio/index')
-
+const Artifact = require('../models/CoursePortfolio/Artifact/index')
+var SLOPort = require('../models/CoursePortfolio/StudentLearningOutcome.js')
+var SLO = require('../models/StudentLearningOutcome/index')
 module.exports.new = async ({
 	department_id,
 	course_number,
@@ -13,7 +15,37 @@ module.exports.new = async ({
 
 const portfolios = await Portfolio.query()
 num = portfolios.length+1
+await Portfolio.query().insert({
+	id:num,
+	course_id: parseInt(course_number),
+	instructor_id: instructor,
+	semester_term_id: parseInt(semester),
+	year: parseInt(year),
+	num_students: parseInt(num_students)	,
+	section: parseInt(section)
+})
+for ( const i of student_learning_outcomes){
+	const sloId = await SLO.query().alias('slo').where('slo.index',parseInt(i))
+	const sloPorts = await SLOPort.query()
+	console.log(sloId)
+	await SLOPort.query().insert({
+		id:sloPorts.length+1,
+		portfolio_id: num,
+		slo_id: sloId[0].id
+	})
+	for(j =0;  j<3; j++){
+		var arts = await Artifact.query()
+		await Artifact.query().insert({
+			id: arts.length+1,
+			index:j+1,
+			portfolio_slo_id: sloPorts.length+1,
+			name:"_unset_"
 	
+		})
+	}
+}
+
+
 return {
 	id: num
 };

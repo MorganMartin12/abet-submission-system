@@ -5,10 +5,13 @@ var course_portfolio_lib = require('../lib/course_portfolio')
 var Portfolio = require('../models/CoursePortfolio/index')
 var router = express.Router();
 
+
 const Department = require('../models/Department')
 const TermType = require('../models/TermType')
 
 const course_manage_page = async (res, course_id) => {
+	
+	console.log(portfolio)
 	let course_info = {
 		student_learning_outcomes: [
 			{
@@ -131,7 +134,7 @@ router.route('/:id')
 	.post(html.auth_wrapper(async (req, res, next) => {
 		if (req.params.id === 'new') {
 			if (req.body.course_submit) {
-				console.log(req.body)
+				
 				const course_portfolio = await course_portfolio_lib.new({
 					department_id: req.body.department,
 					course_number: req.body.course_number,
@@ -143,16 +146,6 @@ router.route('/:id')
 						.filter(entry => entry[0].startsWith('slo_') && entry[1] === 'on')
 						.map(entry => entry[0].split('_')[1]),
 					section: req.body.course_section
-				})
-				console.log(course_portfolio.id)
-				await Portfolio.query().insert({
-					id:course_portfolio.id,
-					course_id: parseInt(req.body.course_number),
-					instructor_id: 1,
-					semester_term_id: parseInt(req.body.semester),
-					year: parseInt(req.body.course_year),
-					num_students: parseInt(req.body.num_students)	,
-					section: parseInt(req.body.course_section)
 				})
 
 				res.redirect(302, `/course/${course_portfolio.id}`)
