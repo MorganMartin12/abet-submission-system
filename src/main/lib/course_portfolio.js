@@ -22,8 +22,8 @@ await Portfolio.query().insert({
 	instructor_id: instructor,
 	semester_term_id: parseInt(semester),
 	year: parseInt(year),
-	num_students: parseInt(num_students)	,
-	section: parseInt(section)
+	num_students: parseInt(num_students),
+	section: parseInt(section),
 })
 for ( const i of student_learning_outcomes){
 	const sloId = await SLO.query().alias('slo').where('slo.index',parseInt(i))
@@ -116,6 +116,7 @@ module.exports.get = async (portfolio_id) => {
 			semester: raw_portfolio.semester.value,
 			year: raw_portfolio.year
 		},
+
 	}
 
 	for (let i in raw_portfolio.outcomes) {

@@ -49,6 +49,44 @@ const course_new_page = async (res, department = false) => {
 router.route('/')
 	.get(html.auth_wrapper(async (req, res, next) => {
 		const portfolios = await Portfolio.query()
+			.eager({
+				course: {
+					department: true
+				},
+				instructor: true,
+				semester: true,
+				outcomes: {
+					slo: {
+						metrics: true
+					},
+					artifacts: {
+						evaluations: true
+					}
+				},
+
+			})			
+		for(var i = 0; i < portfolios.length;i++){
+			var completed = 0;
+			var total = 0;
+
+			for(var j = 0; j < portfolios[i].outcomes.length; j++){
+				for (var k = 0; k < portfolios[i].outcomes[j].artifacts.length; k++){
+					for (var l = 0; l < portfolios[i].outcomes[j].artifacts[k].evaluations.length; l++){
+						total++;
+						if(portfolios[i].outcomes[j].artifacts[k].evaluations[l].file != null){
+							completed++;
+						}
+					}
+				}
+			}
+		
+			portfolios[i].completed = completed;
+			portfolios[i].total = total;
+			portfolios[i].date = "Dec 5, 2019";
+			
+		}
+
+
 		res.render('base_template', {
 			title: 'Course Portfolios',
 			body: mustache.render('course/index',{
