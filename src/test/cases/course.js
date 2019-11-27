@@ -75,13 +75,23 @@ describe("Course.js", () => {
         })
 
     })
-    describe("get course/id", () => {
+    describe("course/id", () => {
         afterEach(() => {
             sandbox.restore()
         })
         it("should get the edit page", (done) => {
             chai.request(app)
                 .get('/course/1')
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    done();
+                 });
+        })
+        it("should post on submission page", (done) => {
+            var course_portfolio_lib = require('../../main/lib/course_portfolio')
+            sandbox.stub(course_portfolio_lib, "update").returns(null) 
+            chai.request(app)
+                .post('/course/30')
                 .end((err, res) => {
                     res.should.have.status(200);
                     done();

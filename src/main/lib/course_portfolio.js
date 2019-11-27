@@ -28,7 +28,6 @@ await Portfolio.query().insert({
 for ( const i of student_learning_outcomes){
 	const sloId = await SLO.query().alias('slo').where('slo.index',parseInt(i))
 	const sloPorts = await SLOPort.query()
-	console.log(sloId)
 	await SLOPort.query().insert({
 		id:sloPorts.length+1,
 		portfolio_id: num,
@@ -70,11 +69,7 @@ for ( const i of student_learning_outcomes){
 				{
 					metric: 5,
 					value: 6
-				},
-				{
-					metric: 6,
-					value: 6
-				},
+				}
 
 			])
 		})
@@ -130,4 +125,24 @@ module.exports.get = async (portfolio_id) => {
 	}
 
 	return portfolio
+}
+
+module.exports.update = async (info,portfolio_id) =>{
+	var portfolio= await this.get(portfolio_id)
+	const artifactValue = parseInt(Object.keys(info)[0].match(/[0-9](?=-)/)[0])
+	var updateArtifact = portfolio.outcomes[0].artifacts[artifactValue-1]
+	console.log(updateArtifact.evaluations)
+	for(i=0; i<5;i++){
+		for(j=0;j<5;j++){
+			updateArtifact.evaluations[i].evaluation[j].value=parseInt(Object.values(info)[j][i])
+		}
+			//updateArtifact.evaluations[i].evaluation = JSON.stringify(updateArtifact.evaluations[i].evaluation)
+			updateArtifact.evaluations[i].file = ''
+			await Eval.query().update({artifact_id:updateArtifact.id,evaluation_index:i,student_index:i,evaluation:updateArtifact.evaluations[i].evaluation}).where('id',updateArtifact.evaluations[i].id)
+
+	}
+
+	console.log(updateArtifact)
+	//await Artifact.query().upsertGraph(updateArtifact)
+
 }

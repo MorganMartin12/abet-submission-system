@@ -11,8 +11,6 @@ const TermType = require('../models/TermType')
 
 const course_manage_page = async (res, course_id) => {
 	const portfolio = await course_portfolio_lib.get(course_id)
-	
-	console.log(portfolio)
 	let course_info = {
 		student_learning_outcomes: portfolio.outcomes
 	};
@@ -91,7 +89,8 @@ router.route('/:id')
 				await course_new_page(res, req.body.department)
 			}
 		} else {
-			await course_manage_page(res, 499)
+			await course_portfolio_lib.update(req.body,req.params.id)
+			await course_manage_page(res, req.params.id)
 		}
 	}))
 
