@@ -82,7 +82,8 @@ router.route('/')
 		
 			portfolios[i].completed = completed;
 			portfolios[i].total = total;
-			portfolios[i].date = "Dec 5, 2019";
+			portfolios[i].Semester = portfolios[i].semester.value;
+			
 			
 		}
 
