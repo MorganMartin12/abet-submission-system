@@ -35,7 +35,7 @@ describe('Lib - CoursePortfolio', () => {
 						"year": 2019,
 						"course": {
 							"id": 1,
-							"department_id": 1,
+							"department_id": "cs",
 							"number": 498,
 							"department": {
 								"id": 1,

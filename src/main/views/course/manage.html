@@ -63,11 +63,11 @@
 								<option value="9">Not</option>
 								<option value="10">Does Not Apply</option>
 							</select>
-							<script>$('[name=student-{{index}}-category-{{metric}}]').val('{{value}}')</script>
+							<script>$('[name=student-{{student_index}}-category-{{metric}}]').val('{{value}}')</script>
 						</td>
 						{{/evaluation}}
 						<td>
-							<input name="student-1-submission" type="file"></input>
+							<input name="students-submissions" type="file"></input>
 							attach <i class="material-icons">attachment</i>
 						</td>
 					</tr>
