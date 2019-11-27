@@ -110,7 +110,7 @@ module.exports.get = async (portfolio_id) => {
 		num_students: raw_portfolio.num_students,
 		outcomes: [],
 		course: {
-			department: raw_portfolio.course.department.identifier,
+			department: raw_portfolio.course.department.d,
 			number: raw_portfolio.course.number,
 			section: raw_portfolio.section,
 			semester: raw_portfolio.semester.value,
@@ -136,13 +136,10 @@ module.exports.update = async (info,portfolio_id) =>{
 		for(j=0;j<5;j++){
 			updateArtifact.evaluations[i].evaluation[j].value=parseInt(Object.values(info)[j][i])
 		}
-			//updateArtifact.evaluations[i].evaluation = JSON.stringify(updateArtifact.evaluations[i].evaluation)
+			updateArtifact.evaluations[i].evaluation = JSON.stringify(updateArtifact.evaluations[i].evaluation)
 			updateArtifact.evaluations[i].file = ''
 			await Eval.query().update({artifact_id:updateArtifact.id,evaluation_index:i,student_index:i,evaluation:updateArtifact.evaluations[i].evaluation}).where('id',updateArtifact.evaluations[i].id)
 
 	}
-
-	console.log(updateArtifact)
-	//await Artifact.query().upsertGraph(updateArtifact)
 
 }
